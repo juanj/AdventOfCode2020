@@ -14,11 +14,16 @@ case "day1":
         print("Please specify an input file")
         exit(1)
     }
+
     let file = CommandLine.arguments[2]
+    var adding = 2
+    if CommandLine.arguments.count >= 4, let number = Int(CommandLine.arguments[3]) {
+        adding = number
+    }
     let fixer = ExpenseReportFixer()
 
     let entries = fixer.readExpenseReport(from: file)
-    print(fixer.analyze(entries: entries))
+    print(fixer.analyze(entries: entries, adding: adding))
 default:
     print("Problem \(problem) not found")
 }

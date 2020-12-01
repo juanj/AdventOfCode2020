@@ -42,6 +42,22 @@ final class ExpenseReportFixerTests: XCTestCase {
         XCTAssertEqual(result, 600)
     }
 
+    func testAnalyze_addingThree_returnsProduct() {
+        let fixer = ExpenseReportFixer()
+
+        let result = fixer.analyze(entries: [1, 2, 7], target: 10, adding: 3)
+
+        XCTAssertEqual(result, 14)
+    }
+
+    func testAnalyze_addingThreeWithMultipleNumbers_returnsProduct() {
+        let fixer = ExpenseReportFixer()
+
+        let result = fixer.analyze(entries: [50, 3, 20, 5, 7, 34, 98, 11, 3, 1, 300], target: 112, adding: 3)
+
+        XCTAssertEqual(result, 3234)
+    }
+
     static var allTests = [
         ("testAnalyze_withEmptyArray_returnsZero", testAnalyze_withEmptyArray_returnsZero),
     ]
