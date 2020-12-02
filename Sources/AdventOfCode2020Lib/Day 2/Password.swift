@@ -9,6 +9,11 @@ import Foundation
 
 public struct Password: Equatable {
     let text: String
-    let range: ClosedRange<Int>
+    let position1: Int
+    let position2: Int
     let character: Character
+
+    var range: ClosedRange<Int> {
+        return position1...position2
+    }
 }

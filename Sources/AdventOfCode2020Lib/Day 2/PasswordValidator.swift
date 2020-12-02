@@ -23,16 +23,20 @@ public class PasswordValidator {
 
     public func parse(_ input: String) -> Password {
         let parts = input.split(separator: " ")
-        let bounds = parts[0].split(separator: "-").compactMap { Int($0) }
+        let positions = parts[0].split(separator: "-").compactMap { Int($0) }
 
-        return Password(text: String(parts[2]), range: bounds[0]...bounds[1], character: parts[1].first ?? " ")
+        return Password(text: String(parts[2]), position1: positions[0], position2: positions[1], character: parts[1].first ?? " ")
     }
 
-    public func validate(_ password: Password) -> Bool {
+    public func validateOldJob(_ password: Password) -> Bool {
         let count = password.text.lowercased()
             .filter { $0 == password.character }
             .count
 
         return password.range.contains(count)
+    }
+
+    public func validateToboggan(_ password: Password) -> Bool {
+        return false
     }
 }

@@ -7,7 +7,7 @@ final class PasswordValidatorTests: XCTestCase {
 
         let result = validator.parse("1-9 a aaaaaaaaab")
 
-        XCTAssertEqual(result, Password(text: "aaaaaaaaab", range: 1...9, character: "a"))
+        XCTAssertEqual(result.range, 1...9)
     }
 
     func testParse_withMultiDigitRange_isParsedCorrectly() {
@@ -15,23 +15,39 @@ final class PasswordValidatorTests: XCTestCase {
 
         let result = validator.parse("100-325 a aaaaaaaaab")
 
-        XCTAssertEqual(result, Password(text: "aaaaaaaaab", range: 100...325, character: "a"))
+        XCTAssertEqual(result.range, 100...325)
     }
 
-    func testValidate_withNumberOfCharactersWithinLimit_isTrue() {
+    func testParse_character_decodesCharacter() {
         let validator = PasswordValidator()
-        let password = Password(text: "aaaaaaaaab", range: 1...9, character: "a")
 
-        let result = validator.validate(password)
+        let result = validator.parse("100-325 a aaaaaaaaab")
+
+        XCTAssertEqual(result.character, "a")
+    }
+
+    func testParse_Text_decodesText() {
+        let validator = PasswordValidator()
+
+        let result = validator.parse("100-325 a aaaaaaaaab")
+
+        XCTAssertEqual(result.text, "aaaaaaaaab")
+    }
+
+    func testValidateOldJob_withNumberOfCharactersWithinLimit_isTrue() {
+        let validator = PasswordValidator()
+        let password = Password(text: "aaaaaaaaab", position1: 1, position2: 9, character: "a")
+
+        let result = validator.validateOldJob(password)
 
         XCTAssertTrue(result)
     }
 
-    func testValidate_withNumberOfCharactersBeyondLimit_isFalse() {
+    func testValidateOldJob_withNumberOfCharactersBeyondLimit_isFalse() {
         let validator = PasswordValidator()
-        let password = Password(text: "aaaaaaaaaa", range: 1...9, character: "a")
+        let password = Password(text: "aaaaaaaaaa", position1: 1, position2: 9, character: "a")
 
-        let result = validator.validate(password)
+        let result = validator.validateOldJob(password)
 
         XCTAssertFalse(result)
     }
