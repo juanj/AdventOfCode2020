@@ -24,6 +24,16 @@ case "day1":
 
     let entries = fixer.readExpenseReport(from: file)
     print(fixer.analyze(entries: entries, adding: adding))
+case "day2":
+    guard CommandLine.arguments.count >= 3 else {
+        print("Please specify an input file")
+        exit(1)
+    }
+
+    let file = CommandLine.arguments[2]
+    let validator = PasswordValidator()
+    let password = validator.readPasswordsList(from: file)
+    print(password.filter { validator.validate($0) }.count)
 default:
     print("Problem \(problem) not found")
 }
