@@ -33,7 +33,7 @@ case "day2":
     let file = CommandLine.arguments[2]
     let validator = PasswordValidator()
     let password = validator.readPasswordsList(from: file)
-    print(password.filter { validator.validateOldJob($0) }.count)
+    print(password.filter { validator.validateToboggan($0) }.count)
 default:
     print("Problem \(problem) not found")
 }

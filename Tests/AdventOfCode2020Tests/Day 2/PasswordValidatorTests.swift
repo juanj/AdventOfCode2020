@@ -51,4 +51,31 @@ final class PasswordValidatorTests: XCTestCase {
 
         XCTAssertFalse(result)
     }
+
+    func testValidateToboggan_withFirstCharacterAtPosition_isTrue() {
+        let validator = PasswordValidator()
+        let password = Password(text: "abbbbbbbb", position1: 1, position2: 9, character: "a")
+
+        let result = validator.validateToboggan(password)
+
+        XCTAssertTrue(result)
+    }
+
+    func testValidateToboggan_withSecondCharacterAtPosition_isTrue() {
+        let validator = PasswordValidator()
+        let password = Password(text: "bbbbbbbba", position1: 1, position2: 9, character: "a")
+
+        let result = validator.validateToboggan(password)
+
+        XCTAssertTrue(result)
+    }
+
+    func testValidateToboggan_withBothCharactersAtPosition_isFalse() {
+        let validator = PasswordValidator()
+        let password = Password(text: "abbbbbbba", position1: 1, position2: 9, character: "a")
+
+        let result = validator.validateToboggan(password)
+
+        XCTAssertFalse(result)
+    }
 }

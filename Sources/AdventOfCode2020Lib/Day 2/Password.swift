@@ -16,4 +16,12 @@ public struct Password: Equatable {
     var range: ClosedRange<Int> {
         return position1...position2
     }
+
+    var index1: String.Index {
+        return text.index(text.startIndex, offsetBy: position1 - 1)
+    }
+
+    var index2: String.Index {
+        return text.index(text.startIndex, offsetBy: position2 - 1)
+    }
 }

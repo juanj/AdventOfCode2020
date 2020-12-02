@@ -37,6 +37,9 @@ public class PasswordValidator {
     }
 
     public func validateToboggan(_ password: Password) -> Bool {
-        return false
+        let containsPosition1 = password.text[password.index1] == password.character
+        let containsPosition2 = password.text[password.index2] == password.character
+
+        return (containsPosition1 && !containsPosition2) || (!containsPosition1 && containsPosition2)
     }
 }
