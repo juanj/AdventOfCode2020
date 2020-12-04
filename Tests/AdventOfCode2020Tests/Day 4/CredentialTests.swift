@@ -10,23 +10,23 @@ final class CredentialTests: XCTestCase {
 
         let credential = Credential(from: input)
 
-        XCTAssertEqual(credential, Credential(birthYear: "1937", issueYear: "2017", expirationYear: "2020", hairColor: "#fffffd", height: "183cm", eyeColor: "gry", passportId: "860033327", countryId: "147"))
+        XCTAssertEqual(credential, Credential(birthYear: 1937, issueYear: 2017, expirationYear: 2020, hairColor: "#fffffd", height: "183cm", eyeColor: "gry", passportId: "860033327", countryId: "147"))
     }
 
     func testIsValid_withAllFields_returnsTrue() {
-        let credential = Credential(birthYear: "", issueYear: "", expirationYear: "", hairColor: "", height: "", eyeColor: "", passportId: "", countryId: "")
+        let credential = Credential(birthYear: 2000, issueYear: 2012, expirationYear: 2020, hairColor: "#ffffff", height: "170cm", eyeColor: "amb", passportId: "000333999", countryId: "123")
 
         XCTAssertTrue(credential.isValid())
     }
 
     func testIsValid_withEmptyCid_returnsTrue() {
-        let credential = Credential(birthYear: "", issueYear: "", expirationYear: "", hairColor: "", height: "", eyeColor: "", passportId: "", countryId: nil)
+        let credential = Credential(birthYear: 2000, issueYear: 2012, expirationYear: 2020, hairColor: "#ffffff", height: "170cm", eyeColor: "amb", passportId: "000333999", countryId: nil)
 
         XCTAssertTrue(credential.isValid())
     }
 
     func testIsValid_withEmptyPid_returnsFalse() {
-        let credential = Credential(birthYear: "", issueYear: "", expirationYear: "", hairColor: "", height: "", eyeColor: "", passportId: nil, countryId: "")
+        let credential = Credential(birthYear: 2000, issueYear: 2012, expirationYear: 2020, hairColor: "#ffffff", height: "170cm", eyeColor: "amb", passportId: nil, countryId: "123")
 
         XCTAssertFalse(credential.isValid())
     }
