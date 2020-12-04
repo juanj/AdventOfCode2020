@@ -51,6 +51,16 @@ case "day3":
         result *= trees
     }
     print("Result: \(result)")
+case "day4":
+    guard CommandLine.arguments.count >= 3 else {
+        print("Please specify an input file")
+        exit(1)
+    }
+
+    let file = CommandLine.arguments[2]
+    let loader = CredentialLoader()
+    let credentials = loader.loadBatch(from: file)
+    print(credentials.map { $0.isValid() }.filter { $0 }.count)
 default:
     print("Problem \(problem) not found")
 }
