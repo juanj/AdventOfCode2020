@@ -9,15 +9,9 @@ import Foundation
 
 public struct Navigator {
     public init() {}
-    public func loadMap(from path: String) -> [[Int]] {
-        do {
-            let mapFile = try String(contentsOfFile: path)
-            let map = parseMap(mapFile)
-            return map
-        } catch let error {
-            print(error.localizedDescription)
-            return []
-        }
+    public func loadMap(from file: String) -> [[Int]] {
+        let map = parseMap(file)
+        return map
     }
 
     public func parseMap(_ map: String) -> [[Int]] {

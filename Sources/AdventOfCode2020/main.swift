@@ -14,6 +14,7 @@ struct Runner: ParsableCommand {
     var input: String
 
     func run() throws {
+        let inputFile = try String(contentsOfFile: input)
         let executer: Executer
         switch day {
         case .day1:
@@ -21,13 +22,13 @@ struct Runner: ParsableCommand {
         case .day2:
             executer = Day2Executer()
         case .day3:
-            executer = Day3Executer() 
+            executer = Day3Executer()
         case .day4:
             executer = Day4Executer()
         case .day5:
             executer = Day5Executer()
         }
-        executer.execute(with: input)
+        executer.execute(with: inputFile)
     }
 }
 

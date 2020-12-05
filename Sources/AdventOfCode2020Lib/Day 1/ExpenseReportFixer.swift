@@ -9,16 +9,10 @@ import Foundation
 
 public class ExpenseReportFixer {
     public init() {}
-    public func readExpenseReport(from path: String) -> [Int] {
-        do {
-            let expenseReport = try String(contentsOfFile: path)
-            let entries = expenseReport.split(separator: "\n")
-                .compactMap { Int($0) }
-            return entries
-        } catch let error {
-            print(error.localizedDescription)
-            return []
-        }
+    public func readExpenseReport(from string: String) -> [Int] {
+        let entries = string.split(separator: "\n")
+            .compactMap { Int($0) }
+        return entries
     }
 
     public func analyze(entries: [Int], target: Int = 2020, adding: Int = 2) -> Int {

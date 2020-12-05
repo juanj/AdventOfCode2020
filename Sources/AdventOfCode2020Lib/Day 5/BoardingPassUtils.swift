@@ -9,14 +9,9 @@ import Foundation
 
 public struct BoardingPassUtils {
     public init() {}
-    public func loadList(from path: String) -> [BoardingPass] {
-        do {
-            let list = try String(contentsOfFile: path).split(separator: "\n")
-                return list.map { BoardingPass(from: String($0)) }
-        } catch let error {
-            print(error.localizedDescription)
-            return []
-        }
+    public func loadList(from file: String) -> [BoardingPass] {
+        let list = file.split(separator: "\n")
+        return list.map { BoardingPass(from: String($0)) }
     }
 
     public func max(boardingPasses: [BoardingPass]) -> Int {

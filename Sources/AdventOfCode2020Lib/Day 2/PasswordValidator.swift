@@ -9,16 +9,10 @@ import Foundation
 
 public class PasswordValidator {
     public init() {}
-    public func readPasswordsList(from path: String) -> [Password] {
-        do {
-            let passwordsList = try String(contentsOfFile: path)
-            let passwords = passwordsList.split(separator: "\n")
-                .compactMap { parse(String($0)) }
-            return passwords
-        } catch let error {
-            print(error.localizedDescription)
-            return []
-        }
+    public func readPasswordsList(from file: String) -> [Password] {
+        let passwords = file.split(separator: "\n")
+            .compactMap { parse(String($0)) }
+        return passwords
     }
 
     public func parse(_ input: String) -> Password {
