@@ -7,8 +7,7 @@
 
 import Foundation
 
-public struct Password: Equatable {
-    let text: String
+public struct PasswordPolicy: Equatable {
     let position1: Int
     let position2: Int
     let character: Character
@@ -17,11 +16,11 @@ public struct Password: Equatable {
         return position1...position2
     }
 
-    var index1: String.Index {
-        return text.index(text.startIndex, offsetBy: position1 - 1)
+    func index1(for string: String) -> String.Index {
+        return string.index(string.startIndex, offsetBy: position1 - 1)
     }
 
-    var index2: String.Index {
-        return text.index(text.startIndex, offsetBy: position2 - 1)
+    func index2(for string: String) -> String.Index {
+        return string.index(string.startIndex, offsetBy: position2 - 1)
     }
 }

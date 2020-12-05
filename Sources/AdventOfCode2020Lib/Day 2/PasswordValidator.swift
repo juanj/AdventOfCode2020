@@ -9,30 +9,30 @@ import Foundation
 
 public class PasswordValidator {
     public init() {}
-    public func readPasswordsList(from file: String) -> [Password] {
+    public func readPasswordsList(from file: String) -> [(PasswordPolicy, String)] {
         let passwords = file.split(separator: "\n")
             .compactMap { parse(String($0)) }
         return passwords
     }
 
-    public func parse(_ input: String) -> Password {
+    public func parse(_ input: String) -> (PasswordPolicy, String) {
         let parts = input.split(separator: " ")
         let positions = parts[0].split(separator: "-").compactMap { Int($0) }
 
-        return Password(text: String(parts[2]), position1: positions[0], position2: positions[1], character: parts[1].first ?? " ")
+        return (PasswordPolicy(position1: positions[0], position2: positions[1], character: parts[1].first ?? " ") , text: String(parts[2]))
     }
 
-    public func validateOldJob(_ password: Password) -> Bool {
-        let count = password.text.lowercased()
-            .filter { $0 == password.character }
+    public func validateOldJob(password: String, with policy: PasswordPolicy) -> Bool {
+        let count = password.lowercased()
+            .filter { $0 == policy.character }
             .count
 
-        return password.range.contains(count)
+        return policy.range.contains(count)
     }
 
-    public func validateToboggan(_ password: Password) -> Bool {
-        let containsPosition1 = password.text[password.index1] == password.character
-        let containsPosition2 = password.text[password.index2] == password.character
+    public func validateToboggan(password: String, with policy: PasswordPolicy) -> Bool {
+        let containsPosition1 = password[policy.index1(for: password)] == policy.character
+        let containsPosition2 = password[policy.index2(for: password)] == policy.character
 
         return (containsPosition1 && !containsPosition2) || (!containsPosition1 && containsPosition2)
     }
