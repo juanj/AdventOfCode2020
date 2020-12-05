@@ -61,6 +61,17 @@ case "day4":
     let loader = CredentialLoader()
     let credentials = loader.loadBatch(from: file)
     print(credentials.map { $0.isValid() }.filter { $0 }.count)
+case "day5":
+    guard CommandLine.arguments.count >= 3 else {
+        print("Please specify an input file")
+        exit(1)
+    }
+
+    let file = CommandLine.arguments[2]
+    let utils = BoardingPassUtils()
+    let boardingPasses = utils.loadList(from: file)
+    print("Max id: \(utils.max(boardingPasses: boardingPasses))")
+    print("Missing id: \(utils.findMissing(boardingPasses: boardingPasses))")
 default:
     print("Problem \(problem) not found")
 }
