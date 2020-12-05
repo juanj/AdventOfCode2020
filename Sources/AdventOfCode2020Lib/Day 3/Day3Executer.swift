@@ -19,6 +19,6 @@ public struct Day3Executer: Executer {
             print("Trees with slope \(slope[0]) right, \(slope[1]) down: \(trees)")
             result *= trees
         }
-        print("Result: \(result)")
+        print("Product of the number of trees encountered on each of the slopes: \(result)")
     }
 }
