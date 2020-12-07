@@ -17,5 +17,6 @@ public struct Day7Executer: Executer {
             .map { utils.isInside(rules: rules, containerColor: $0, innerColor: "shinygold") ? 1 : 0 }
             .reduce(0, +)
         print("Number of colors that eventualy contains shiny gold: \(contained)")
+        print("Number of bags inside shiny gold: \(utils.numberOfBags(rules: rules, bagColor: "shinygold") - 1)")
     }
 }

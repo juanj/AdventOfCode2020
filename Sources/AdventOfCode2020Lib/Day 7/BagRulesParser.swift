@@ -56,4 +56,13 @@ public struct BagRulesUtils {
 
         return false
     }
+
+    public func numberOfBags(rules: [String: BagsRule], bagColor: String) -> Int {
+        guard let bag = rules[bagColor] else { return 0 }
+        if bag.contents.count > 0 {
+            return bag.contents.map { $0.count * numberOfBags(rules: rules, bagColor: $0.color) }
+                .reduce(1, +)
+        }
+        return 1
+    }
 }
