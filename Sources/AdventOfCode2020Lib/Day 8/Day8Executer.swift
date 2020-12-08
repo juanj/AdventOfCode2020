@@ -15,5 +15,9 @@ public struct Day8Executer: Executer {
         let runner = InstructionsRunner()
 
         print("The value of the accumulator just before loop is: \(runner.runUntilLoop(instructions: instructions))")
+
+        let fixedInstructions = runner.fixInfiniteLoop(instructions: instructions)
+
+        print("The value of the accumulator after running the fixed instrutions is: \(runner.run(instructions: fixedInstructions))")
     }
 }
