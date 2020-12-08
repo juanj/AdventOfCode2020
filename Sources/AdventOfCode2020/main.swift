@@ -3,7 +3,7 @@ import ArgumentParser
 import AdventOfCode2020Lib
 
 enum Day: String, ExpressibleByArgument {
-    case day1, day2, day3, day4, day5, day6, day7
+    case day1, day2, day3, day4, day5, day6, day7, day8
 }
 
 struct Runner: ParsableCommand {
@@ -31,6 +31,8 @@ struct Runner: ParsableCommand {
             executer = Day6Executer()
         case .day7:
             executer = Day7Executer()
+        case .day8:
+            executer = Day8Executer()
         }
         executer.execute(with: inputFile)
     }
