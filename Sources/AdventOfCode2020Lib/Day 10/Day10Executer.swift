@@ -18,5 +18,8 @@ public struct Day10Executer: Executer {
         let step1Count = steps.filter { $0 == 1 }.count
         let step2Count = steps.count - step1Count
         print("The number of 1 steps multiplied by the number of 3 steps is \(step1Count * step2Count)")
+
+        let combinations = utils.getNumberOfCombinations(adapters: adapters)
+        print("The number valid combinations is \(combinations)")
     }
 }
