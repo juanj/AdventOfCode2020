@@ -40,7 +40,11 @@ struct Runner: ParsableCommand {
         case .day11:
             executer = Day11Executer()
         }
+
+        let startTime = CFAbsoluteTimeGetCurrent()
         executer.execute(with: inputFile)
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        print("It took \(timeElapsed * 1000)ms")
     }
 }
 
