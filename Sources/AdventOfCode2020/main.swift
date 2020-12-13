@@ -3,7 +3,7 @@ import ArgumentParser
 import AdventOfCode2020Lib
 
 enum Day: String, ExpressibleByArgument {
-    case day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12
+    case day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13
 }
 
 struct Runner: ParsableCommand {
@@ -41,6 +41,8 @@ struct Runner: ParsableCommand {
             executer = Day11Executer()
         case .day12:
             executer = Day12Executer()
+        case .day13:
+            executer = Day13Executer()
         }
 
         let startTime = CFAbsoluteTimeGetCurrent()
