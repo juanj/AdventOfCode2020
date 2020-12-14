@@ -13,7 +13,7 @@ final class MemoryUtilsTests: XCTestCase {
 
         let operations = utils.load(from: input)
 
-        XCTAssertEqual(operations, [MemoryOperation(mask: Mask(from: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X"), assignments: [8: 11, 7: 101, 9: 0])])
+        XCTAssertEqual(operations.description, [MemoryOperation(mask: Mask(from: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X"), assignments: [(8, 11), (7, 101), (9, 0)])].description)
     }
 
     func testLoad_withMultipleOperations_loadsOperations() {
@@ -31,7 +31,7 @@ final class MemoryUtilsTests: XCTestCase {
 
         let operations = utils.load(from: input)
 
-        XCTAssertEqual(operations, [MemoryOperation(mask: Mask(from: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X"), assignments: [8: 11, 7: 101, 9: 0]),
-                                    MemoryOperation(mask: Mask(from: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX0XXXX0X"), assignments: [8: 11, 7: 101, 9: 0])])
+        XCTAssertEqual(operations.description, [MemoryOperation(mask: Mask(from: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X"), assignments: [(8, 11), (7, 101), (9, 0)]),
+                                    MemoryOperation(mask: Mask(from: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX0XXXX0X"), assignments: [(8, 11), (7, 101), (9, 0)])].description)
     }
 }

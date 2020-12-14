@@ -10,11 +10,16 @@ import Foundation
 public struct Mask: Equatable {
     let onesMask: UInt64
     let zerosMask: UInt64
+    let floatingMask: UInt64
+    let rawMask: String
 
     public init(from string: String) {
+        rawMask = string
         onesMask = UInt64(string.replacingOccurrences(of: "0", with: "X")
             .replacingOccurrences(of: "X", with: "0"), radix: 2) ?? 0
         zerosMask = UInt64(string.replacingOccurrences(of: "1", with: "X")
+                            .replacingOccurrences(of: "X", with: "1"), radix: 2) ?? .max
+        floatingMask = UInt64(string.replacingOccurrences(of: "1", with: "0")
                             .replacingOccurrences(of: "X", with: "1"), radix: 2) ?? .max
     }
 

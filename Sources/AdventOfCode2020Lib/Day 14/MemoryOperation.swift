@@ -7,14 +7,25 @@
 
 import Foundation
 
-public struct MemoryOperation: Equatable {
+public struct MemoryOperation {
     let mask: Mask
-    var assignments: [Int: UInt64]
+    var assignments: [(address: UInt64, value: UInt64)]
 
-    public func execute(on memory: [Int: UInt64]) -> [Int: UInt64] {
+    public func execute(on memory: [String: UInt64]) -> [String: UInt64] {
         var memory = memory
         for assignment in assignments {
-            memory[assignment.key] = mask.apply(to: assignment.value)
+            memory[String(assignment.address)] = mask.apply(to: assignment.value)
+        }
+        return memory
+    }
+
+    public func executeV2(on memory: [String: UInt64]) -> [String: UInt64] {
+        var memory = memory
+        for assignment in assignments{
+            var iterator = FloatingMemoryIterator(mask: mask, address: assignment.address)
+            while let address = iterator.next() {
+                memory[String(address)] = assignment.value
+            }
         }
         return memory
     }

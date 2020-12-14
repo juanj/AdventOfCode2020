@@ -20,11 +20,11 @@ public struct MemoryUtils {
                 if let currentOperation = currentOperation {
                     operations.append(currentOperation)
                 }
-                currentOperation = MemoryOperation(mask: Mask(from: String(line.dropFirst(7))), assignments: [:])
+                currentOperation = MemoryOperation(mask: Mask(from: String(line.dropFirst(7))), assignments: [])
             } else if line.hasPrefix("mem[") {
-                let key = Int(String(line.dropFirst(4)).components(separatedBy: "]")[0]) ?? 0
+                let key = UInt64(String(line.dropFirst(4)).components(separatedBy: "]")[0]) ?? 0
                 let value = UInt64(line.components(separatedBy: " ").last ?? "") ?? 0
-                currentOperation?.assignments[key] = value
+                currentOperation?.assignments.append((address: key, value: value))
             }
         }
         if let currentOperation = currentOperation {
