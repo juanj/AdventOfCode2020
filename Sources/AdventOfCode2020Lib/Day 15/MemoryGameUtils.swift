@@ -16,10 +16,10 @@ public struct MemoryGameUtils {
             .compactMap { Int($0) }
     }
 
-    public func initialGameState(from numbers: [Int]) -> ([Int: Int], Int, Int) {
+    public func initialGameState(from numbers: [Int], size: Int = 30_000_000) -> ([Int?], Int, Int) {
         var numbers = numbers
         let nextNumber = numbers.popLast()!
-        var gameState = [Int: Int]()
+        var gameState: [Int?] = Array(repeating: nil, count: size)
         for (index, number) in numbers.enumerated() {
             gameState[number] = index + 1
         }
@@ -27,7 +27,7 @@ public struct MemoryGameUtils {
         return (gameState, numbers.count + 2, nextNumber)
     }
 
-    public func nextTurn(gameState: inout [Int: Int], currentTurn: inout Int, lastNumber: inout Int) {
+    public func nextTurn(gameState: inout [Int?], currentTurn: inout Int, lastNumber: inout Int) {
         var nextNumber = 0
 
         if let turn = gameState[lastNumber] {
