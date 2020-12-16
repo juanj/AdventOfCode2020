@@ -26,7 +26,7 @@ final class MemoryGameUtilsTests: XCTestCase {
 
     func testNextTurn_afterSequenceOfTurns_stateIsCorrect() {
         let utils = MemoryGameUtils()
-        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [0, 3, 6])
+        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [0, 3, 6], size: 10)
 
         utils.nextTurn(gameState: &gameState, currentTurn: &currentTurn, lastNumber: &lastNumber)
         utils.nextTurn(gameState: &gameState, currentTurn: &currentTurn, lastNumber: &lastNumber)
@@ -37,7 +37,7 @@ final class MemoryGameUtilsTests: XCTestCase {
 
     func testNextTurn_afterLongSequenceOfTurns_stateIsCorrect() {
         let utils = MemoryGameUtils()
-        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [0, 3, 6])
+        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [0, 3, 6], size: 10)
 
         utils.nextTurn(gameState: &gameState, currentTurn: &currentTurn, lastNumber: &lastNumber)
         utils.nextTurn(gameState: &gameState, currentTurn: &currentTurn, lastNumber: &lastNumber)
@@ -52,7 +52,7 @@ final class MemoryGameUtilsTests: XCTestCase {
 
     func testNextTurn_withTestInput1_numberAt2020is436() {
         let utils = MemoryGameUtils()
-        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [0, 3, 6])
+        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [0, 3, 6], size: 2020)
 
         while currentTurn <= 2020 {
             utils.nextTurn(gameState: &gameState, currentTurn: &currentTurn, lastNumber: &lastNumber)
@@ -63,7 +63,7 @@ final class MemoryGameUtilsTests: XCTestCase {
 
     func testNextTurn_withTestInput2_numberAt2020is436() {
         let utils = MemoryGameUtils()
-        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [1, 3, 2])
+        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [1, 3, 2], size: 2020)
 
         while currentTurn <= 2020 {
             utils.nextTurn(gameState: &gameState, currentTurn: &currentTurn, lastNumber: &lastNumber)
@@ -74,7 +74,7 @@ final class MemoryGameUtilsTests: XCTestCase {
 
     func testNextTurn_withTestInput3_numberAt2020is436() {
         let utils = MemoryGameUtils()
-        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [2, 1, 3])
+        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [2, 1, 3], size: 2020)
 
         while currentTurn <= 2020 {
             utils.nextTurn(gameState: &gameState, currentTurn: &currentTurn, lastNumber: &lastNumber)
@@ -85,7 +85,7 @@ final class MemoryGameUtilsTests: XCTestCase {
 
     func testNextTurn_withTestInput4_numberAt2020is436() {
         let utils = MemoryGameUtils()
-        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [1, 2, 3])
+        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [1, 2, 3], size: 2020)
 
         while currentTurn <= 2020 {
             utils.nextTurn(gameState: &gameState, currentTurn: &currentTurn, lastNumber: &lastNumber)
@@ -96,7 +96,7 @@ final class MemoryGameUtilsTests: XCTestCase {
 
     func testNextTurn_withTestInput5_numberAt2020is436() {
         let utils = MemoryGameUtils()
-        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [2, 3, 1])
+        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [2, 3, 1], size: 2020)
 
         while currentTurn <= 2020 {
             utils.nextTurn(gameState: &gameState, currentTurn: &currentTurn, lastNumber: &lastNumber)
@@ -107,7 +107,7 @@ final class MemoryGameUtilsTests: XCTestCase {
 
     func testNextTurn_withTestInput6_numberAt2020is436() {
         let utils = MemoryGameUtils()
-        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [3, 2, 1])
+        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [3, 2, 1], size: 2020)
 
         while currentTurn <= 2020 {
             utils.nextTurn(gameState: &gameState, currentTurn: &currentTurn, lastNumber: &lastNumber)
@@ -118,7 +118,7 @@ final class MemoryGameUtilsTests: XCTestCase {
 
     func testNextTurn_withTestInput7_numberAt2020is436() {
         let utils = MemoryGameUtils()
-        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [3, 1, 2])
+        var (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [3, 1, 2], size: 2020)
 
         while currentTurn <= 2020 {
             utils.nextTurn(gameState: &gameState, currentTurn: &currentTurn, lastNumber: &lastNumber)
@@ -129,7 +129,7 @@ final class MemoryGameUtilsTests: XCTestCase {
 
     func testInitialGameState_withTestInput2_createsGameState() {
         let utils = MemoryGameUtils()
-        let (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [1, 3, 2])
+        let (gameState, currentTurn, lastNumber) = utils.initialGameState(from: [1, 3, 2], size: 2020)
 
         XCTAssertEqual(gameState[1], 1)
         XCTAssertEqual(gameState[3], 2)
