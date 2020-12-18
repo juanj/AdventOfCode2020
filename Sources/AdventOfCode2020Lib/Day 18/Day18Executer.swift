@@ -16,6 +16,12 @@ public struct Day18Executer: Executer {
             .map { utils.reorder(tokens: $0) }
             .map { utils.execute(tokens: $0) }
             .reduce(0, +)
-        print("The result of the sum of the expressions is \(result)")
+        print("The sum of the results of the expressions is \(result)")
+
+        let resultWithPrecedence = expressions
+            .map { utils.reorder(tokens: $0, equalPriority: false) }
+            .map { utils.execute(tokens: $0) }
+            .reduce(0, +)
+        print("The sum of the results of the expressions using (custom) precendence is \(resultWithPrecedence))")
     }
 }

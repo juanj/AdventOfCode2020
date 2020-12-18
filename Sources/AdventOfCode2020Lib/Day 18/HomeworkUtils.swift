@@ -34,7 +34,7 @@ public struct HomeworkUtils {
         return tokens
     }
 
-    public func reorder(tokens: [HomeworkToken]) -> [HomeworkToken] {
+    public func reorder(tokens: [HomeworkToken], equalPriority: Bool = true) -> [HomeworkToken] {
         // Modified Shunting-yard
         // Only + and * operators and all operators have the same priority
         var outputStack = [HomeworkToken]()
@@ -44,7 +44,7 @@ public struct HomeworkUtils {
             case .number:
                 outputStack.append(token)
             case .add, .mul:
-                while let topOperator = operatorsStack.last, topOperator != .lparen {
+                while let topOperator = operatorsStack.last, (equalPriority || (topOperator == .add && token == .mul || topOperator == token)) && topOperator != .lparen {
                     if let op = operatorsStack.popLast() {
                         outputStack.append(op)
                     }
