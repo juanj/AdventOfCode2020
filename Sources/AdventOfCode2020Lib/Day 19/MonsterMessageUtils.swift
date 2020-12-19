@@ -14,8 +14,14 @@ public struct MonsterMessageUtils {
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .components(separatedBy: "\n\n")
 
+        let messages = components[1]
+            .components(separatedBy: "\n")
+        return (loadRules(from: components[0]), messages)
+    }
+
+    public func loadRules(from file: String) -> [String: MessageRule] {
         var rules = [String: MessageRule]()
-        var prerules = components[0]
+        var prerules = file
             .components(separatedBy: "\n")
             .reduce([String: String](), { dict, component -> [String: String] in
                 var dict = dict
@@ -72,30 +78,18 @@ public struct MonsterMessageUtils {
             }
         }
 
-        let messages = components[1]
-            .components(separatedBy: "\n")
-
-        return (rules, messages)
+        return rules
     }
 
     public func patchRules(_ rules: [String: MessageRule]) -> [String: MessageRule] {
         var rules = rules
-        let rule8 = OrMessageRule(rules: [rules["42"]!, AndMessageRule(rules: [rules["42"]!])])
-        (rule8.subRules[1] as! AndMessageRule).subRules.append(rule8)
+        let rule8 = RecusriveRule(baseCase: rules["42"]!, recursiveCase: [rules["42"]!, RecursivePlaceholder()])
+        let rule11 = RecusriveRule(baseCase: AndMessageRule(rules: [rules["42"]!, rules["31"]!]), recursiveCase: [rules["42"]!, RecursivePlaceholder(), rules["31"]!])
         rules["8"] = rule8
-        let rule11 = OrMessageRule(rules: [
-                                    AndMessageRule(rules: [
-                                                    rules["42"]!,
-                                                    rules["31"]!]),
-                                    AndMessageRule(rules: [
-                                                    rules["42"]!,
-                                                    rules["31"]!])
-        ])
-        (rule11.subRules[1] as! AndMessageRule).subRules.insert(rule11, at: 1)
         rules["11"] = rule11
 
         // Only rule 0 depend on those
-        rules["0"] = AndMessageRule(rules: [rules["8"]!, rules["11"]!])
+        rules["0"] = InverseLookupAndRule(rule1: rule8, rule2: rule11)
         return rules
     }
 }
