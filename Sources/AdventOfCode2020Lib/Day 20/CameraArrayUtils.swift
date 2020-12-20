@@ -187,4 +187,50 @@ public struct CameraArrayUtils {
         }
         return fullImage
     }
+
+    // TODO: Needs clenup
+    public func findSeaMonsters(fullImage: [[Int]]) -> [[Int]] {
+        var fullImage = fullImage
+        let seamonster = [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+            [1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1],
+            [0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0]
+        ]
+
+
+        for _ in 0..<2 {
+            for _ in 0..<4 {
+                for yIndex in 0..<(fullImage.count - seamonster.count) {
+                    for xIndex in 0..<(fullImage[yIndex].count - seamonster[0].count) {
+                        var matchedRows = 0
+                        rowLoop: for (rowIndex, row) in seamonster.enumerated() {
+                            let possibleRow = Array(fullImage[yIndex + rowIndex].dropFirst(xIndex).dropLast(fullImage[yIndex + rowIndex].count - row.count - xIndex))
+                            for value in zip(row, possibleRow) {
+                                if value.0 == 1 && value.1 != 1 {
+                                    continue rowLoop
+                                }
+                            }
+                            matchedRows += 1
+                        }
+                        if matchedRows == seamonster.count {
+                            for (rowIndex, monsterRow) in seamonster.enumerated() {
+                                for (characterIndex, character) in monsterRow.enumerated() where character == 1 {
+                                    fullImage[yIndex + rowIndex][xIndex + characterIndex] = 2
+                                }
+                            }
+                        }
+                    }
+                }
+                var newFullImage = Array(repeating: Array(repeating: 0, count: fullImage.count), count: fullImage.count)
+                for i in 0..<fullImage.count {
+                    for j in 0..<fullImage.count {
+                        newFullImage[i][j] = fullImage[fullImage.count - j - 1][i]
+                    }
+                }
+                fullImage = newFullImage
+            }
+            fullImage = fullImage.map { $0.reversed() }
+        }
+        return fullImage
+    }
 }
