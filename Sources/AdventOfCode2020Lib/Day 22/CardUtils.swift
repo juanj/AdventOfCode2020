@@ -49,14 +49,14 @@ public struct CardUtils {
         return decks
     }
 
-    public func playUntilWin(decks: GameState, seenStates: [GameState: Bool] = [:]) -> (winner: Player, deck: [Int]) {
+    public func playUntilWin(decks: GameState, seenStates: Set<GameState> = []) -> (winner: Player, deck: [Int]) {
         var seenStates = seenStates
         var currentState = decks
         while currentState.player1.count > 0 && currentState.player2.count > 0 {
-            if seenStates[currentState] == true {
+            if seenStates.contains(currentState) {
                 return (winner: .player1, deck: currentState.player1)
             }
-            seenStates[currentState] = true
+            seenStates.insert(currentState)
             let player1Card = currentState.player1.removeFirst()
             let player2Card = currentState.player2.removeFirst()
 
