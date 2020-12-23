@@ -11,17 +11,25 @@ public struct Day23Executer: Executer {
     public init() {}
     public func execute(with input: String) {
         let utils = CupGameUtils()
-        var cups = utils.load(from: input)
+        let numbers = utils.load(from: input)
+        var (cup, lookups) = utils.buildLinkedList(numbers: numbers)
 
         for _ in 0..<100 {
-            cups = utils.move(cups: cups)
+            cup = utils.move(cup: cup, lookups: &lookups)!
         }
 
-        while cups.first != 1 {
-            cups += [cups.removeFirst()]
+        var startCup = cup
+        while startCup.label != 1 {
+            startCup = startCup.next!
         }
-        cups.removeFirst()
+        print("The labesl of the cups after 100 turns are: \(utils.cupsString(cup: startCup).dropFirst())")
 
-        print("The labesl fo the cups after 100 turns are: \(cups.reduce("", { $0 + String($1) }))")
+        let allNumbers = utils.buildCups(startingCups: numbers)
+        var (allCups, allLookups) = utils.buildLinkedList(numbers: allNumbers)
+
+        for _ in 0..<10_000_000 {
+            allCups = utils.move(cup: allCups, lookups: &allLookups, max: 1_000_000)!
+        }
+        print("The product of the two values after 1 is: \(allLookups[1]!.next!.label * allLookups[1]!.next!.next!.label)")
     }
 }
