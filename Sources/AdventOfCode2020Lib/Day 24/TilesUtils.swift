@@ -41,23 +41,35 @@ public struct TilesUtils {
         return location
     }
 
-    public func stepTiles(tiles: Set<TileLocation>) -> Set<TileLocation> {
-        var newState = Set<TileLocation>()
+    public func stepTiles(tiles: [TileLocation: Bool]) -> [TileLocation: Bool] {
+        var newState = [TileLocation: Bool]()
 
-        var tilesToCheck = Set<TileLocation>()
-        for tile in tiles {
-            tilesToCheck.insert(tile)
+        var tilesToCheck = [TileLocation: Bool]()
+        for tile in tiles.keys {
+            tilesToCheck[tile] = true
             for direction in Direction.allCases {
-                tilesToCheck.insert(tile + direction.tileDirection)
+                tilesToCheck[tile + direction.tileDirection] = true
             }
         }
 
-        for tile in tilesToCheck {
+        for tile in tilesToCheck.keys {
             let adjacentTiles = Direction.allCases.map { tile + $0.tileDirection }
-            if tiles.contains(tile) && (tiles.intersection(adjacentTiles).count == 1 || tiles.intersection(adjacentTiles).count == 2) {
-                newState.insert(tile)
-            } else if !tiles.contains(tile) && tiles.intersection(adjacentTiles).count == 2 {
-                newState.insert(tile)
+            if tiles[tile] != nil {
+                var count = 0
+                for adjacentTile in adjacentTiles {
+                    count += tiles[adjacentTile] != nil ? 1 : 0
+                }
+                if count == 1 || count == 2 {
+                    newState[tile] = true
+                }
+            } else {
+                var count = 0
+                for adjacentTile in adjacentTiles {
+                    count += tiles[adjacentTile] != nil ? 1 : 0
+                }
+                if count == 2 {
+                    newState[tile] = true
+                }
             }
         }
 

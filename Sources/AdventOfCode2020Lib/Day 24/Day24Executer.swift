@@ -12,13 +12,13 @@ public struct Day24Executer: Executer {
     public func execute(with input: String) {
         let utils = TilesUtils()
         let tiles = utils.load(from: input)
-        var onTiles = Set<TileLocation>()
+        var onTiles = [TileLocation: Bool]()
         for directions in tiles {
             let location = utils.tileLocationAfter(directions: directions)
-            if onTiles.contains(location) {
-                onTiles.remove(location)
+            if onTiles[location] != nil {
+                onTiles.removeValue(forKey: location)
             } else {
-                onTiles.insert(location)
+                onTiles[location] = true
             }
         }
         print("The total number of black tiles is \(onTiles.count)")
