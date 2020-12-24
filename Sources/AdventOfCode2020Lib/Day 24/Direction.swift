@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Direction: String {
+public enum Direction: String, CaseIterable {
     case east = "e"
     case southeast = "se"
     case southwest = "sw"

@@ -22,5 +22,10 @@ public struct Day24Executer: Executer {
             }
         }
         print("The total number of black tiles is \(onTiles.count)")
+
+        for _ in 0..<100 {
+            onTiles = utils.stepTiles(tiles: onTiles)
+        }
+        print("After 100 days the total number of black tiles is \(onTiles.count)")
     }
 }

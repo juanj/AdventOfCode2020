@@ -40,4 +40,27 @@ public struct TilesUtils {
         }
         return location
     }
+
+    public func stepTiles(tiles: Set<TileLocation>) -> Set<TileLocation> {
+        var newState = Set<TileLocation>()
+
+        var tilesToCheck = Set<TileLocation>()
+        for tile in tiles {
+            tilesToCheck.insert(tile)
+            for direction in Direction.allCases {
+                tilesToCheck.insert(tile + direction.tileDirection)
+            }
+        }
+
+        for tile in tilesToCheck {
+            let adjacentTiles = Direction.allCases.map { tile + $0.tileDirection }
+            if tiles.contains(tile) && (tiles.intersection(adjacentTiles).count == 1 || tiles.intersection(adjacentTiles).count == 2) {
+                newState.insert(tile)
+            } else if !tiles.contains(tile) && tiles.intersection(adjacentTiles).count == 2 {
+                newState.insert(tile)
+            }
+        }
+
+        return newState
+    }
 }
